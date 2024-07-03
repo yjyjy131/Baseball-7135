@@ -38,30 +38,30 @@ public:
 
 	GuessResult guess(const string& guessNumber) {
 		assertIllegalArgument(guessNumber);
+
 		if (guessNumber == question) {
 			return { true, 3, 0 };
 		}
 
-		int strike = 0;
-		int ball = 0;
+		int strikes = 0;
+		int balls = 0;
 
-		for (int no = 0; no < 3; no++) {
-			int q_no = question[no];
-			int a_no = guessNumber[no];
+		for (int ball_no = 0; ball_no < 3; ball_no++) {
+			int question_no = question[ball_no];
+			int guess_no = guessNumber[ball_no];
 
-			if (q_no == a_no) {
-				strike++;
+			if (question_no == guess_no) {
+				strikes++;
 				continue;
 			}
 
-			if (question.find(a_no) != string::npos) {
-				ball++;
+			if (question.find(guess_no) != string::npos) {
+				balls++;
 				continue;
 			}
-
 		}
 
-		return {false, strike, ball};
+		return {false, strikes, balls };
 	}
 
 private:

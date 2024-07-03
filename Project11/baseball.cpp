@@ -26,7 +26,7 @@ public:
 		}
 
 		for (char ch : guessNumber) {
-			if (ch < '0' || ch > '9') continue;
+			if (ch >= '0' && ch <= '9') continue;
 			throw invalid_argument("Must be number");
 		}
 
@@ -41,7 +41,27 @@ public:
 		if (guessNumber == question) {
 			return { true, 3, 0 };
 		}
-		return { false, 0, 0 };
+
+		int strike = 0;
+		int ball = 0;
+
+		for (int no = 0; no < 3; no++) {
+			int q_no = question[no];
+			int a_no = guessNumber[no];
+
+			if (q_no == a_no) {
+				strike++;
+				continue;
+			}
+
+			if (question.find(a_no) != string::npos) {
+				ball++;
+				continue;
+			}
+
+		}
+
+		return {false, strike, ball};
 	}
 
 private:
